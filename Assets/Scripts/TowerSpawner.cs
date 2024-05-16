@@ -17,6 +17,7 @@ public class TowerSpawner : MonoBehaviour
     void Start()
     {
         panel = GameObject.FindGameObjectWithTag("ui");
+        panel.SetActive(false);
     }
 
 
@@ -46,11 +47,6 @@ public class TowerSpawner : MonoBehaviour
                 panel.SetActive(false);
             }
             towerPos = (int)Char.GetNumericValue(hits[0].collider.name.Last());
-            //Debug.Log(hits[0].collider.name.Last());
-            Debug.Log(hits[0].collider.name.Last());
-
-            Debug.Log(towerPos);
-            // Debug.Log(towerPos);
         }
         else
         {
@@ -59,7 +55,7 @@ public class TowerSpawner : MonoBehaviour
     }
     public void SpawnTower()
     {
-        Debug.Log("hej");
+        
         panel.SetActive(false);
     }
 

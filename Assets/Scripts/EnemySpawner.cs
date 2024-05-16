@@ -19,8 +19,7 @@ public class EnemySpawner : MonoBehaviour
         spawner = GameObject.Find("Enemies");
         spawnPos = GameObject.Find("Waypoint 1");
         button = GameObject.Find("Next Round").GetComponent<Button>();
-        GameObject enemy = Instantiate(prefab, spawnPos.transform.position, Quaternion.identity);
-        enemy.transform.parent = spawner.transform;
+        
     }
 
     void Update()
@@ -29,7 +28,8 @@ public class EnemySpawner : MonoBehaviour
 
     public void NextWave()
     {
-        Debug.Log("hej");
+        GameObject enemy = Instantiate(prefab, spawnPos.transform.position, Quaternion.identity);
+        enemy.transform.parent = spawner.transform;
         button.interactable = false;
     }
 }
