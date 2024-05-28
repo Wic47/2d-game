@@ -1,4 +1,5 @@
 using System.Data;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
@@ -9,7 +10,8 @@ public class EnemyMovement : MonoBehaviour
     private Collider2D col;
     private Collider2D col2;
     private Transform playerTransform;
-    public int hp = 20;
+    private int level;
+    public int hp;
     private Animator anim;
 
     private void Awake()
@@ -19,6 +21,8 @@ public class EnemyMovement : MonoBehaviour
         col = GetComponent<Collider2D>();
         col2 = GameObject.Find("Player").GetComponent<Collider2D>();
         Physics2D.IgnoreCollision(col, col2);
+        level = Mathf.Clamp((int)Mathf.Floor(Stats.timeAlive) / 20, 1, 100);
+        hp = 20 + 5 * level;
     }
 
     private void Update()
@@ -50,15 +54,20 @@ public class EnemyMovement : MonoBehaviour
         {
             anim.SetBool("attack", false);
         }
+        if (hp <= 0)
+        {
+            anim.SetBool("death", true);
+            Destroy(gameObject, 0.75f);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        col.GetComponent<HealthBar>().Damage(3);
-        if (hp <= 0)
-        {
-            col.GetComponent<HealthBar>().Score();
-            Destroy(gameObject);
-        }
+        col.GetComponent<Stats>().Damage(1);
+    }
+
+    void OnDestroy()
+    {
+        Stats.GainXp(level);
     }
 }

@@ -13,7 +13,7 @@ public class EnemySpawner : MonoBehaviour
         spawnpoints = GameObject.FindGameObjectsWithTag("spawnpoint");
     }
 
-    void FixedUpdate()
+    void Update()
     {
         time -= Time.deltaTime;
         if (time <= 0)

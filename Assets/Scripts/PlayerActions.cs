@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovent : MonoBehaviour
+public class PlayerActions : MonoBehaviour
 {
-    private float movementSpeed = 8;
+    public static float movementSpeed = 8;
+    public static int damage = 5;
     private Rigidbody2D rb;
     private Vector2 movement;
-    public Animator anim;
+    public static Animator anim;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -54,6 +56,6 @@ public class PlayerMovent : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        col.GetComponent<EnemyMovement>().hp -= 5;
+        col.GetComponent<EnemyMovement>().hp -= damage;
     }
 }
